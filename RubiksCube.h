@@ -1,5 +1,5 @@
-#include "Face.h"
 #include <string>
+#include "Face.h"
 
 class RubiksCube {
 private:
@@ -9,13 +9,13 @@ public:
   enum Side { Top, Bottom, Left, Center, Right1, Right2 };
   enum Color { White, Green, Red, Blue, Orange, Yellow };
   
-  RubiksCube() {}
-  ~RubiksCube() {}
+  RubiksCube();
+  ~RubiksCube();
   
-  void initial() {}
-  void rotate(const Color& color, const std::string& direction) {}
-  void show() {}
-  void isequal() {}
+  void initial();
+  void rotate(const Color& color, const std::string& direction);
+  void show();
+  bool isequal();
   
   bool operator== (const RubiksCube& rhs) const {
     return false;
