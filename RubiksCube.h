@@ -13,10 +13,10 @@ public:
   RubiksCube();
   ~RubiksCube();
   
-  void initial(istream& is);
+  void initial(std::istream& is);
   void rotate(const Color& color, const std::string& direction);
-  void show(ostream& os);
-  bool isequal(istream& is, ostream& os);
+  void show(std::ostream& os);
+  bool isequal(std::istream& is, std::ostream& os);
   
   bool operator== (const RubiksCube& rhs) const {
     return false;
