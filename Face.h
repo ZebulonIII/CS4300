@@ -3,7 +3,7 @@ private
   Color colors[SIZE];
 
 public:
-  const int SIZE = 9;
+  static int SIZE = 9;
   
   Face(Color color);
   Face(Color colors[SIZE]);
