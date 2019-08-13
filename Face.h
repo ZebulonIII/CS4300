@@ -9,5 +9,5 @@ public:
   Face(Color colors[SIZE]);
   ~Face();
   
-  Color& operator[](int i);
+  Color& operator[](int& i);
 };
