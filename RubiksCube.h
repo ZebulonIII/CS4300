@@ -18,6 +18,8 @@ public:
   void show(std::ostream& os);
   bool isequal(std::istream& is, std::ostream& os);
   
+  Color sideToColor(const Side& side);
+  
   bool operator== (const RubiksCube& rhs) const {
     return false;
   }
