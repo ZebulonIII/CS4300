@@ -8,5 +8,6 @@ public:
   Face();
   ~Face();
   
+  std::string toString();
   Color& operator[](int& i);
 };
