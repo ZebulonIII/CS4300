@@ -1,14 +1,19 @@
+#include "Face.h"
+#include <string>
+
 class RubiksCube {
 private:
+  std::map<Side, Face> faces;
   
 public:  
-  enum Face { Top, Down, Left, Center, Right1, Right2 };
+  enum Side { Top, Bottom, Left, Center, Right1, Right2 };
+  enum Color { White, Green, Red, Blue, Orange, Yellow };
   
   RubiksCube() {}
   ~RubiksCube() {}
   
   void initial() {}
-  void rotate() {}
+  void rotate(const Color& color, const std::string& direction) {}
   void show() {}
   void isequal() {}
   
