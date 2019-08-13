@@ -6,8 +6,9 @@ private:
   std::map<Side, Face> faces;
   
 public:  
-  enum Side { Top, Bottom, Left, Center, Right1, Right2 };
+  enum Side { Top, Left, Center, Right1, Right2, Bottom };
   enum Color { White, Green, Red, Blue, Orange, Yellow };
+  static int NUM_FACES = 6;
   
   RubiksCube();
   ~RubiksCube();
