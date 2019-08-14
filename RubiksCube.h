@@ -16,6 +16,8 @@ class Face;
 class RubiksCube {
 private:
 	std::map<Side, Face> faces;
+	std::map<Side, Side[3]> cwOrder = { {Center, {} };
+	std::map<Side, Side[3]> ccwOrder;
   
 public:
 	RubiksCube();
