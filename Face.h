@@ -1,13 +1,26 @@
+#ifndef _FACE_H_
+#define _FACE_H_
+
+#include <string>
+#include "RubiksCube.h"
+
+enum Color;
+
 class Face {
-private
-  Color colors[SIZE];
+private:
+	Color colors[9];
 
 public:
-  static int SIZE = 9;
-  
-  Face();
-  ~Face();
-  
-  std::string toString();
-  Color& operator[](int& i);
+	const static int SIZE = 9;
+
+	Face();
+	~Face();
+
+	Color getCenterColor() const;
+	std::string toString() const;
+	Color& operator[] (const int& i) {
+		return colors[i];
+	}
 };
+
+#endif
