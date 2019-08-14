@@ -26,14 +26,11 @@ void RubiksCube::rotate(std::istream& is) {
 		return;
 	color = stringToColor(color_str);
 	// find face with center tile equal to color and rotate
-	Face& face;
 	for (int i = 0; i < NUM_FACES; i++) {
-		face = faces[(Side)i];
-		if (face.getCenterColor() == color) {
+		if (faces[(Side)i].getCenterColor() == color) {
 			switch ((Side)i) {
 				case Top:
 				case Bottom:
-				case Center:
 					Face temp = faces[Bottom];
 					if (direction == "cw") {
 						faces[Bottom] = faces[Right2];
@@ -50,13 +47,18 @@ void RubiksCube::rotate(std::istream& is) {
 					return;
 				case Left:
 				case Right1:
-				case Right2:
 					Face temp = faces[Left];
 					if (direction == "cw") {
-						
+						faces[Left] = faces[Center];
+						faces[Center] = faces[Right1];
+						faces[Right1] = faces[Right2];
+						faces[Right2] = temp;
 					}
 					else { // ccw
-						
+						faces[Left] = faces[Right2];
+						faces[Right2] = faces[Right1];
+						faces[Right1] = faces[Center];
+						faces[Center] = temp;
 					}
 					return;
 				default: return;
