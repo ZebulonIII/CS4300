@@ -67,8 +67,7 @@ void RubiksCube::rotate(std::istream& is) {
 			return;
 		}
 	}
-	// shouldn't reach here
-	throw "Error in rotate";
+	throw "ERROR! Reached end of RubiksCube::rotate";
 }
 void RubiksCube::show(std::ostream& os) {
 	for (int i = 0; i < NUM_FACES; i++)
