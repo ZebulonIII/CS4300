@@ -34,35 +34,35 @@ void RubiksCube::rotate(std::istream& is) {
 					if (direction == "cw") {
 						faces[Bottom] = faces[Right2];
 						faces[Right2] = faces[Top];
-						faces[Top] = faces[Center];
+						faces[Top]    = faces[Center];
 						faces[Center] = temp;
 					}
 					else { // ccw
 						faces[Bottom] = faces[Center];
 						faces[Center] = faces[Top];
-						faces[Top] = faces[Right2];
+						faces[Top]    = faces[Right2];
 						faces[Right2] = temp;
 					}
-					return;
+					break;
 				case Left:
 				case Right1:
 				case Center:
 				case Right2:
 					temp = faces[Left];
 					if (direction == "cw") {
-						faces[Left] = faces[Center];
+						faces[Left]   = faces[Center];
 						faces[Center] = faces[Right1];
 						faces[Right1] = faces[Right2];
 						faces[Right2] = temp;
 					}
 					else { // ccw
-						faces[Left] = faces[Right2];
+						faces[Left]   = faces[Right2];
 						faces[Right2] = faces[Right1];
 						faces[Right1] = faces[Center];
 						faces[Center] = temp;
 					}
-					return;
-				default: return;
+					break;
+				default: break;
 			}
 			return;
 		}
@@ -87,7 +87,7 @@ void RubiksCube::isequal(std::istream& is, std::ostream& os) {
 	}
 	os << "TRUE\n";
 }
-const Color RubiksCube::stringToColor(const std::string& side) {
+const Color RubiksCube::stringToColor(const std::string& side) const {
 	switch (side[0]) {
 		case 'w': return Color::White;
 		case 'y': return Color::Yellow;
@@ -98,7 +98,7 @@ const Color RubiksCube::stringToColor(const std::string& side) {
 		default: throw "Invalid String";
 	}
 }
-const std::string RubiksCube::colorToString(const Color& color) {
+const std::string RubiksCube::colorToString(const Color& color) const {
 	switch (color) {
 		case Yellow: return "yellow";
 		case Green: return "green";
