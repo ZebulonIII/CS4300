@@ -1,9 +1,7 @@
 #include <iostream>
 #include <map>
 #include "RubiksCube.h"
-
-RubiksCube::RubiksCube() {}
-RubiksCube::~RubiksCube() {}
+#include "Face.h"
 
 void RubiksCube::initial(std::istream& is) {
 	std::string color;
@@ -28,10 +26,11 @@ void RubiksCube::rotate(std::istream& is) {
 	// find face with center tile equal to color and rotate
 	for (int i = 0; i < NUM_FACES; i++) {
 		if (faces[(Side)i].getCenterColor() == color) {
-			/*switch ((Side)i) {
+			Face temp;
+			switch ((Side)i) {
 				case Top:
 				case Bottom:
-					Face temp = faces[Bottom];
+					temp = faces[Bottom];
 					if (direction == "cw") {
 						faces[Bottom] = faces[Right2];
 						faces[Right2] = faces[Top];
@@ -47,7 +46,9 @@ void RubiksCube::rotate(std::istream& is) {
 					return;
 				case Left:
 				case Right1:
-					Face temp = faces[Left];
+				case Center:
+				case Right2:
+					temp = faces[Left];
 					if (direction == "cw") {
 						faces[Left] = faces[Center];
 						faces[Center] = faces[Right1];
@@ -62,7 +63,7 @@ void RubiksCube::rotate(std::istream& is) {
 					}
 					return;
 				default: return;
-			}*/
+			}
 			return;
 		}
 	}
@@ -71,7 +72,7 @@ void RubiksCube::rotate(std::istream& is) {
 }
 void RubiksCube::show(std::ostream& os) {
 	for (int i = 0; i < NUM_FACES; i++)
-		os << faces[(Side)i].toString() << "\n\n";
+		os << faces[(Side)i].toString() << '\n';
 }
 void RubiksCube::isequal(std::istream& is, std::ostream& os) {
 	std::string color;  
@@ -80,14 +81,14 @@ void RubiksCube::isequal(std::istream& is, std::ostream& os) {
 		for (int j = 0; j < FACE_SIZE ; j++) {
 			is >> color;
 			if (face[j] != stringToColor(color)) {
-				os << "FALSE";
+				os << "FALSE\n";
 				return;
 			}
 		}
 	}
-	os << "TRUE";
+	os << "TRUE\n";
 }
-Color RubiksCube::stringToColor(const std::string& side) const {
+const Color RubiksCube::stringToColor(const std::string& side) {
 	switch (side[0]) {
 		case 'w': return Color::White;
 		case 'y': return Color::Yellow;
@@ -98,7 +99,7 @@ Color RubiksCube::stringToColor(const std::string& side) const {
 		default: throw "Invalid String";
 	}
 }
-std::string RubiksCube::colorToString(const Color& color) const {
+const std::string RubiksCube::colorToString(const Color& color) {
 	switch (color) {
 		case Yellow: return "yellow";
 		case Green: return "green";
