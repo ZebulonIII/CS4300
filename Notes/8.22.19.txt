@@ -1,0 +1,44 @@
+Keep in mind your PEAS:
+Performance
+Environment
+Actuatores
+Sensors
+
+Environment:
+Observability
+Uncertainty
+Duration
+Stability
+Granularity
+Participants
+
+Model - A model of the environment. A representation of everything it knows.
+Deterministic - No randomness
+Stochastic - Randomness i.e. robot's tire spinning out and not traveling as far as expected.
+Episodic - Each instance of reasoning is independent.
+Sequential - Logic depends on prior choices.
+
+Easiest agent: Simple Relfex Agent
+Given this percept, what do I do?
+Lookup table
+
+Model Based Reflex Agent
+-What is the world like right now?
+Update State
+How the world changes
+What my actions do
+-Condition-action rules
+-What should I do now?
+
+Model Based Goal Agent
+-What is the world like right now?
+-What will the world be like next?
+-Goals
+-What should I do now?
+
+**Model Based Utility Agent
+-How happy will I be if I take this action (reach the goal)?
+
+Learning Agent
+-May edit its own lookup table.
+-Evaluates and has critic to know what it lookup table should be changed.
