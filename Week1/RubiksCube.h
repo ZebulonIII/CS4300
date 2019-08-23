@@ -33,22 +33,28 @@ public:
 	static const std::string colorToString(const Color&);
 
 	bool operator== (const RubiksCube& rhs) {
-		for (int i = 0; i < NUM_FACES; i++)
+		Side s;
+		for (int i = 0; i < NUM_FACES; i++) {
+			s = static_cast<Side>(i);
 			for (int j = 0; j < FACE_SIZE; j++)
-				if (faces[(Side)i]->at(j) != rhs.faces.at((Side)i)->at(j))
+				if (faces[s]->at(j) != rhs.faces.at(s)->at(j))
 					return false;
+		}
 		return true;
 	}
 	bool operator< (const RubiksCube& rhs) {
-		for (int i = 0; i < NUM_FACES; i++)
+		Side s;
+		for (int i = 0; i < NUM_FACES; i++) {
+			s = static_cast<Side>(i);
 			for (int j = 0; j < FACE_SIZE; j++) {
-				int left_tile = (int)faces[(Side)i]->at(j);
-				int right_tile = (int)rhs.faces.at((Side)i)->at(j);			  
+				int left_tile = (int)faces[s]->at(j);
+				int right_tile = (int)rhs.faces.at(s)->at(j);
 				if (left_tile < right_tile)
 					return true;
 				else if (left_tile > right_tile)
 					return false;
 			}
+		}
 		return false;
 	}
 };
