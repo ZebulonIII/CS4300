@@ -3,13 +3,15 @@
 #include "RubiksCube.h"
 #include "Face.h"
 
+RubiksCube::RubiksCube() {}
+RubiksCube::~RubiksCube() {}
 void RubiksCube::initial(std::istream& is) {
 	std::string color;
 	for (int i = 0; i < NUM_FACES; i++) {
-		Face face;
+		Face* face = new Face();
 		for (int j = 0; j < FACE_SIZE ; j++) {
 			is >> color;
-			face[j] = stringToColor(color);
+			face->at(j) = stringToColor(color);
 		}
 		faces[(Side)i] = face;
 	}
@@ -25,8 +27,8 @@ void RubiksCube::rotate(std::istream& is) {
 	color = stringToColor(color_str);
 	// find face with center tile equal to color and rotate
 	for (int i = 0; i < NUM_FACES; i++) {
-		if (faces[(Side)i].getCenterColor() == color) {
-			Face temp;
+		if (faces[(Side)i]->getCenterColor() == color) {
+			Face* temp;
 			switch ((Side)i) {
 				case Top:
 				case Bottom:
@@ -34,60 +36,62 @@ void RubiksCube::rotate(std::istream& is) {
 					if (direction == "cw") {
 						faces[Bottom] = faces[Right2];
 						faces[Right2] = faces[Top];
-						faces[Top]    = faces[Center];
+						faces[Top]	  = faces[Center];
 						faces[Center] = temp;
 					}
 					else { // ccw
 						faces[Bottom] = faces[Center];
 						faces[Center] = faces[Top];
-						faces[Top]    = faces[Right2];
+						faces[Top]	  = faces[Right2];
 						faces[Right2] = temp;
 					}
-					break;
+					return;
 				case Left:
 				case Right1:
 				case Center:
 				case Right2:
 					temp = faces[Left];
 					if (direction == "cw") {
-						faces[Left]   = faces[Center];
+						faces[Left]	  = faces[Center];
 						faces[Center] = faces[Right1];
 						faces[Right1] = faces[Right2];
 						faces[Right2] = temp;
 					}
 					else { // ccw
-						faces[Left]   = faces[Right2];
+						faces[Left]	  = faces[Right2];
 						faces[Right2] = faces[Right1];
 						faces[Right1] = faces[Center];
 						faces[Center] = temp;
 					}
-					break;
-				default: break;
+					return;
+				default:
+					throw "Error in rotate";
 			}
 			return;
 		}
 	}
-	throw "ERROR! Reached end of RubiksCube::rotate";
+	// shouldn't reach here
+	throw "Error in rotate";
 }
 void RubiksCube::show(std::ostream& os) {
 	for (int i = 0; i < NUM_FACES; i++)
-		os << faces[(Side)i].toString() << '\n';
+		os << faces[(Side)i]->toString() << '\n';
 }
 void RubiksCube::isequal(std::istream& is, std::ostream& os) {
 	std::string color;  
 	for (int i = 0; i < NUM_FACES; i++) {
-		Face& face = faces[(Side)i];		
+		Face* face = faces[(Side)i];		
 		for (int j = 0; j < FACE_SIZE ; j++) {
 			is >> color;
-			if (face[j] != stringToColor(color)) {
+			if (face->at(j) != stringToColor(color)) {
 				os << "FALSE\n";
-				return;
+				return; // no need for more comparisons
 			}
 		}
 	}
 	os << "TRUE\n";
 }
-const Color RubiksCube::stringToColor(const std::string& side) const {
+const Color RubiksCube::stringToColor(const std::string& side) {
 	switch (side[0]) {
 		case 'w': return Color::White;
 		case 'y': return Color::Yellow;
@@ -95,17 +99,17 @@ const Color RubiksCube::stringToColor(const std::string& side) const {
 		case 'o': return Color::Orange;
 		case 'b': return Color::Blue;
 		case 'r': return Color::Red;
-		default: throw "Invalid String";
+		default:  throw "Invalid String";
 	}
 }
-const std::string RubiksCube::colorToString(const Color& color) const {
+const std::string RubiksCube::colorToString(const Color& color) {
 	switch (color) {
 		case Yellow: return "yellow";
-		case Green: return "green";
-		case Blue: return "blue";
-		case Red: return "red";
-		case White: return "white";
+		case Green:  return "green";
+		case Blue:	 return "blue";
+		case Red:	 return "red";
+		case White:	 return "white";
 		case Orange: return "orange";
-		default: throw "Invalid Color";
+		default:	 throw "Invalid Color";
 	}
 }
