@@ -1,8 +1,7 @@
-#include "Face.h"
-#include "RubiksCube.h"
 #include <fstream>
 #include <iostream>
 #include <string>
+#include "RubiksCube.h"
 
 int main() {
 
@@ -25,10 +24,11 @@ int main() {
 		else if (command == "isequal")
 			cube.isequal(is, os);
 		else if (command == "rotate")
-			cube.rotate(is);		
+			cube.rotate(is);
 	}
 
-	system("PAUSE");
+	if (WINDOWS)
+		system("PAUSE");
 
 	return 0;
 }

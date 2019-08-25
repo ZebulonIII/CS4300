@@ -2,6 +2,11 @@
 #include "Face.h"
 #include "RubiksCube.h"
 
+Face::Face() {
+	/*for (int i = 0; i < FACE_SIZE; i++)
+		colors[i] = Color::White;*/
+}
+Face::~Face() {}
 Color Face::getCenterColor() const {
 	return colors[4];
 }
